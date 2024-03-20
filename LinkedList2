@@ -1,0 +1,110 @@
+public class LinkedList2<Item> implements Iterable<Item> {
+
+  private Node first; // Primeiro nó da lista
+  private int n; // Tamanho da lista
+
+  private class Node {
+    Item item; // Item de dados armazenado no nó
+    Node next; // Referência para o próximo nó
+  }
+
+  private class LinkedIterator implements Iterator<Item> {
+
+    private Node current; // Nó atual do iterador
+
+    public LinkedIterator() {
+      current = first;
+    }
+
+    public boolean hasNext() {
+      return current != null;
+    }
+
+    @Override
+    public Item next() {
+      if (!hasNext()) throw new NoSuchElementException();
+      Item item = current.item;
+      current = current.next;
+      return item;
+    }
+  }
+
+  public void addFirst(Item item) {
+    Node newNode = new Node();
+    newNode.item = item;
+    newNode.next = first;
+    first = newNode;
+    n++;
+  }
+
+  public void addLast(Item item) {
+    Node newNode = new Node();
+    newNode.item = item;
+
+    if (isEmpty()) {
+      first = newNode;
+    } else {
+      Node current = first;
+      while (current.next != null) {
+        current = current.next;
+      }
+      current.next = newNode;
+    }
+
+    n++;
+  }
+
+  public Item removeFirst() {
+    if (isEmpty()) throw new NoSuchElementException();
+    Item item = first.item;
+    first = first.next;
+    n--;
+    return item;
+  }
+
+  public Item removeLast() {
+    if (isEmpty()) throw new NoSuchElementException();
+
+    if (n == 1) {
+      Item item = first.item;
+      first = null;
+      n--;
+      return item;
+    }
+
+    Node previous = null;
+    Node current = first;
+    while (current.next != null) {
+      previous = current;
+      current = current.next;
+    }
+
+    previous.next = null;
+    n--;
+    return current.item;
+  }
+
+  public int size() {
+    int count = 0;
+    Node current = first;
+    while (current != null) {
+      count++;
+      current = current.next;
+    }
+    return count;
+  }
+
+  public boolean isEmpty() {
+    return first == null;
+  }
+
+  public LinkedList2() {
+    first = null;
+    n = 0;
+  }
+
+  @Override
+  public Iterator<Item> iterator() {
+    return new LinkedIterator();
+  }
+}
