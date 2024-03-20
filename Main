@@ -1,0 +1,25 @@
+public class Main {
+
+  public static void main(String[] args) {
+    LinkedList2<String> list = new LinkedList2<>();
+
+    list.addFirst("Estrutura de dados 2");
+    list.addFirst("Prog1");
+    list.addLast("Algoritmos");
+
+    for (var s : list) {
+      System.out.println(s);
+    }
+
+    System.out.println("Tamanho da lista: " + list.size());
+
+    System.out.println("Removendo do início: " + list.removeFirst());
+    System.out.println("Removendo do fim: " + list.removeLast());
+
+    for (var s : list) {
+      System.out.println(s);
+    }
+
+    System.out.println("Tamanho da lista: " + list.size());
+  }
+}
